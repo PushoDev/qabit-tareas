@@ -1,0 +1,14 @@
+# Uso de la IA
+
+Herramienta: **Claude Code** (asistente de IA en la terminal), usada durante toda la prueba. Este registro se escribe sobre la marcha.
+
+## Cómo se trabajó
+Paso a paso: la IA propone y escribe un trozo pequeño, explica cada decisión, y el desarrollador lo revisa antes de seguir. Backend primero, frontend después.
+
+## Registro
+
+| Etapa | Qué se pidió | Qué se aceptó | Qué se corrigió o se rechazó |
+|---|---|---|---|
+| Preparación | Crear el proyecto (monorepo, instalación) y enlazarlo con el entorno local | Estructura `server/` + `web/`, scripts de arranque, proxy de `/api` | La IA instaló primero en un disco NTFS que perdía archivos; se detectó con una verificación y se movió al SSD. Una vez ejecutó `npm install` en la carpeta equivocada (sin daño; se revisó) |
+| Git | — | — | Faltaba un `.gitignore` y se confirmó `node_modules`; lo detectó la IA al revisar lo que pegó el desarrollador y se corrigió antes de subir nada |
+| Backend 01 | Base de datos, tipos y validación | `db.ts`, `schemas.ts`, `types.ts` con `CHECK` en la base y una sola fuente de estados | Verificado con un script de 9 casos y `tsc` antes de aceptar |
