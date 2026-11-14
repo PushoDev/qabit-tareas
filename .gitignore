@@ -1,0 +1,25 @@
+# Dependencias y builds
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Base de datos local (SQLite)
+server/data/
+*.db
+*.db-journal
+
+# Entorno y secretos
+.env
+.env.*
+!.env.example
+
+# Archivos locales de la máquina (no son parte de la entrega)
+.lerd.yaml
+.lerd.local.yaml
+.tiempo.txt
+.vscode/
+.cursor/
+
+# Logs y sistema
+*.log
+.DS_Store
