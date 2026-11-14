@@ -9,7 +9,8 @@ Un documento por módulo, escrito mientras se construye. Orden de lectura:
 | [backend/03-tests.md](backend/03-tests.md) | Tests del backend (10) | ✅ hecho |
 | [frontend/01-cliente-api-y-hook.md](frontend/01-cliente-api-y-hook.md) | Tipos, cliente de la API y hook `useTasks` (9 tests) | ✅ hecho |
 | [frontend/02-lista-y-filtro.md](frontend/02-lista-y-filtro.md) | Lista, filtro por estado, cambio de estado, carga y error | ✅ hecho |
-| frontend/03-formulario.md | Formulario validado y tests de componentes | ⏳ siguiente |
+| [frontend/03-formulario.md](frontend/03-formulario.md) | Formulario validado | ✅ hecho |
+| frontend/04-tests-de-componentes.md | Tests del formulario, del botón de estado y de los estados de la lista | ⏳ siguiente |
 | [decisiones.md](decisiones.md) | Decisiones técnicas y por qué | 🔄 se va ampliando |
 | [uso-de-ia.md](uso-de-ia.md) | Cómo se usó la IA: qué se pidió, aceptó y corrigió | 🔄 se va ampliando |
 

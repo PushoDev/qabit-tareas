@@ -19,6 +19,9 @@
 | 15 | Botón de **«siguiente paso»** (Empezar → Marcar hecha → Reabrir) | Cubre el flujo normal con un clic; el estado sigue siendo válido siempre | desplegable con los 3 estados |
 | 16 | **CSS plano** con variables y tema claro/oscuro automático | Una pantalla pequeña no justifica una librería de estilos | Tailwind / componentes de terceros |
 | 17 | `loading` **derivado** del resultado etiquetado en el hook | Evita `setState` dentro del efecto (render en cascada) | un `useState` de `loading` |
+| 18 | Validar en el **cliente y en la API** (mismos límites) | Respuesta inmediata sin viajes inútiles; la API sigue mandando | solo servidor, o solo cliente |
+| 19 | Tras crear, el **filtro vuelve a «Todas»** | Una tarea nueva es «Pendiente»; con otro filtro activo parecería que no se creó | dejar el filtro y no mostrarla |
+| 20 | **Error por campo** (400 con `details`) vs **error general** (red, 500) | Cada fallo se muestra donde el usuario puede actuar | un solo mensaje para todo |
 
 ## Entorno de desarrollo (no afecta al resultado)
 - El proyecto vive en un disco ext4 (SSD). En un disco NTFS, `npm install` perdió archivos en silencio.

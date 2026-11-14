@@ -96,3 +96,27 @@ body { margin: 0; background: var(--bg); }
   .task { grid-template-columns: 1fr auto; }
   .task .btn { grid-column: 1 / -1; }
 }
+
+/* Formulario */
+.form {
+  display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: start;
+  padding: 16px; margin-bottom: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+}
+.field { display: grid; gap: 4px; min-width: 0; }
+.field label { font-size: 0.875rem; font-weight: 600; }
+.field input {
+  padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--text); font: inherit; width: 100%;
+}
+.field input:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+.field input[aria-invalid='true'] { border-color: var(--danger); }
+.field__error { margin: 0; font-size: 0.8125rem; color: var(--danger); }
+.btn--solid { align-self: end; background: var(--accent); color: var(--accent-text); }
+.btn--solid:hover:not(:disabled) { filter: brightness(1.1); }
+.form__msg { grid-column: 1 / -1; margin: 0; font-size: 0.875rem; color: var(--done); }
+.form__msg--error { color: var(--danger); font-weight: 600; }
+
+@media (max-width: 620px) {
+  .form { grid-template-columns: 1fr; }
+  .btn--solid { align-self: stretch; }
+}
