@@ -12,6 +12,7 @@
 | 8 | **Repositorio** que concentra todo el SQL; las rutas no lo conocen | Separar HTTP de persistencia; probar y cambiar cada capa por separado | SQL dentro de las rutas |
 | 9 | **Un manejador central de errores** con formato `{ error, details? }` | El frontend trata todos los errores igual; sin `try/catch` repetidos | responder el error en cada ruta |
 | 10 | **`createApp(db)`** separado del arranque | Tests con SQLite en memoria y sin abrir puertos | crear la app y escuchar en el mismo archivo |
+| 11 | Tests de la **app completa por HTTP** (Supertest) con SQLite en memoria por test | Prueban todas las capas a la vez; rápidos y aislados | tests unitarios de cada función con mocks |
 
 ## Entorno de desarrollo (no afecta al resultado)
 - El proyecto vive en un disco ext4 (SSD). En un disco NTFS, `npm install` perdió archivos en silencio.

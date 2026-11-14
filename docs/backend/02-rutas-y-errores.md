@@ -62,3 +62,18 @@ crear (201), título vacío, responsable ausente, JSON roto, sin cuerpo, cambiar
 ## Detalles que se corrigieron durante la verificación
 - El id inválido decía el campo `(body)`; ahora dice `id`.
 - Los campos ausentes salían en inglés («Required»); ahora en español.
+
+## Verificación contra la base de datos real
+Además de los tests (base en memoria), se probó la API real (puerto 3001) y el archivo `server/data/tasks.db`:
+
+| Comprobación | Resultado |
+|---|---|
+| Crear 3 tareas y cambiar 2 estados por la API | Un `SELECT` directo al archivo (conexión de solo lectura, sin pasar por la API) mostró las mismas 3 filas con los estados correctos |
+| Esquema real | La tabla tiene el `CHECK` de estados y el valor por defecto `pending` |
+| 5 peticiones inválidas (título vacío, sin responsable, JSON roto, id inexistente, estado inválido) | 400/404 y **el número de filas no cambió** (3 antes, 3 después); la tarea 1 conservó su estado |
+| Reinicio: un proceso nuevo abre el mismo archivo | Devuelve los mismos datos, y el filtro por estado funciona (`done` → la tarea 2, `in_progress` → la 1) |
+
+Conclusión: lo que la API acepta llega a SQLite, lo que rechaza no deja rastro, y los datos sobreviven a un reinicio.
+
+Para mirar la base a mano: `server/data/tasks.db` (ignorada por git). Se puede abrir con cualquier cliente SQLite.
+
