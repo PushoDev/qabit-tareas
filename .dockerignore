@@ -1,0 +1,8 @@
+**/node_modules
+**/dist
+server/data
+.git
+.lerd.yaml
+.tiempo.txt
+.vscode
+docs

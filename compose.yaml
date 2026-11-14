@@ -1,0 +1,25 @@
+# Un solo comando:   podman compose up --build      (o)      docker compose up --build
+# Después abre:      http://localhost:8081
+name: qabit-tareas
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    volumes:
+      - tasks-data:/data   # la base de datos sobrevive a los reinicios
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    ports:
+      - "8081:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  tasks-data:
