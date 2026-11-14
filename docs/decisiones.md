@@ -13,6 +13,9 @@
 | 9 | **Un manejador central de errores** con formato `{ error, details? }` | El frontend trata todos los errores igual; sin `try/catch` repetidos | responder el error en cada ruta |
 | 10 | **`createApp(db)`** separado del arranque | Tests con SQLite en memoria y sin abrir puertos | crear la app y escuchar en el mismo archivo |
 | 11 | Tests de la **app completa por HTTP** (Supertest) con SQLite en memoria por test | Prueban todas las capas a la vez; rápidos y aislados | tests unitarios de cada función con mocks |
+| 12 | **Vitest 4** en backend y frontend, `legacy-peer-deps` en `.npmrc` | Vite 8 solo lo soporta Vitest ≥ 4; npm 10.9 falla al resolver sus peers opcionales | Vitest 2 en el back (versiones distintas en cada paquete) |
+| 13 | **Capa de datos separada** (`tasksApi` + `useTasks`) de los componentes | Los componentes no conocen `fetch`; la API y el estado se prueban sin pintar nada | `fetch` dentro de los componentes |
+| 14 | Tras crear o cambiar, **recargar la lista** | Respeta filtro y orden del servidor; sin lógica duplicada | actualización optimista del estado local (con más tiempo) |
 
 ## Entorno de desarrollo (no afecta al resultado)
 - El proyecto vive en un disco ext4 (SSD). En un disco NTFS, `npm install` perdió archivos en silencio.

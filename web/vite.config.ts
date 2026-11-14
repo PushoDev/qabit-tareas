@@ -1,5 +1,5 @@
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -13,5 +13,9 @@ export default defineConfig({
       // /api/* -> Express (3001); el navegador solo habla con un origen
       '/api': 'http://127.0.0.1:3001',
     },
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.ts',
   },
 })
