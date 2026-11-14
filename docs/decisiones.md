@@ -16,6 +16,9 @@
 | 12 | **Vitest 4** en backend y frontend, `legacy-peer-deps` en `.npmrc` | Vite 8 solo lo soporta Vitest ≥ 4; npm 10.9 falla al resolver sus peers opcionales | Vitest 2 en el back (versiones distintas en cada paquete) |
 | 13 | **Capa de datos separada** (`tasksApi` + `useTasks`) de los componentes | Los componentes no conocen `fetch`; la API y el estado se prueban sin pintar nada | `fetch` dentro de los componentes |
 | 14 | Tras crear o cambiar, **recargar la lista** | Respeta filtro y orden del servidor; sin lógica duplicada | actualización optimista del estado local (con más tiempo) |
+| 15 | Botón de **«siguiente paso»** (Empezar → Marcar hecha → Reabrir) | Cubre el flujo normal con un clic; el estado sigue siendo válido siempre | desplegable con los 3 estados |
+| 16 | **CSS plano** con variables y tema claro/oscuro automático | Una pantalla pequeña no justifica una librería de estilos | Tailwind / componentes de terceros |
+| 17 | `loading` **derivado** del resultado etiquetado en el hook | Evita `setState` dentro del efecto (render en cascada) | un `useState` de `loading` |
 
 ## Entorno de desarrollo (no afecta al resultado)
 - El proyecto vive en un disco ext4 (SSD). En un disco NTFS, `npm install` perdió archivos en silencio.
