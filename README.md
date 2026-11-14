@@ -2,6 +2,9 @@
 
 Aplicación pequeña de gestión de tareas con API REST y interfaz web, hecha como prueba técnica. Todo en TypeScript: **Express + SQLite** en el servidor y **React + Vite** en el cliente.
 
+> **▶ Demo en línea: https://qabit-tareas.vercel.app/**
+> Usa datos de ejemplo que se reinician tras un rato de inactividad. Para una instalación que conserva los datos, mira [Cómo ejecutarlo](#cómo-ejecutarlo) (`podman compose up --build`); el despliegue en Vercel está explicado en [`docs/despliegue-en-vercel.md`](docs/despliegue-en-vercel.md).
+
 <p align="center">
   <img src="docs/img/gestor-tareas-banner.webp" alt="Ilustración conceptual del proyecto: React, TypeScript, Node.js y Express" width="720">
   <br>
@@ -20,7 +23,7 @@ Aplicación pequeña de gestión de tareas con API REST y interfaz web, hecha co
 - Validación de los datos en el cliente **y** en la API, con los códigos HTTP correctos (`201`, `400`, `404`…).
 - **Estados de carga y de error visibles**, con botón «Reintentar».
 - **Datos de ejemplo** cargados automáticamente la primera vez, para que no arranque en blanco.
-- 71 tests (15 de backend y 56 de frontend), tema claro/oscuro automático y accesibilidad cuidada (etiquetas, foco, `aria-*`, `prefers-reduced-motion`).
+- 73 tests (15 de backend y 58 de frontend), tema claro/oscuro automático y accesibilidad cuidada (etiquetas, foco, `aria-*`, `prefers-reduced-motion`).
 
 | Validación del formulario | Filtro por estado |
 |:--:|:--:|
@@ -59,7 +62,7 @@ La primera vez que arranca, si la base está **vacía**, la API carga 7 tareas d
 ### Tests y calidad
 
 ```bash
-npm test                       # 71 tests: backend (Vitest + Supertest) y frontend (Vitest + Testing Library)
+npm test                       # 73 tests: backend (Vitest + Supertest) y frontend (Vitest + Testing Library)
 npm run build -w server        # compila el backend
 npm run build -w web           # compila el frontend
 ```

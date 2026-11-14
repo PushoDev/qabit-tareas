@@ -32,4 +32,4 @@ Un documento por módulo, escrito mientras se construye. Orden de lectura:
 | API + web | `./scripts/dev.sh` (o `npm run dev`) |
 | Solo API (http://localhost:3001/api/health) | `./scripts/api.sh` |
 | Solo web (http://localhost:5173) | `./scripts/web.sh` |
-| Tests (backend + frontend, 71) | `npm test` |
+| Tests (backend + frontend, 73) | `npm test` |
