@@ -11,6 +11,6 @@ COPY web web
 RUN npm run build -w web
 
 FROM docker.io/library/nginx:1.27-alpine
-COPY web/nginx.conf /etc/nginx/conf.d/default.conf
+COPY web/nginx.conf.template /etc/nginx/templates/default.conf.template
 COPY --from=build /app/web/dist /usr/share/nginx/html
 EXPOSE 80

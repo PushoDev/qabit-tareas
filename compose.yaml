@@ -1,5 +1,5 @@
 # Un solo comando:   podman compose up --build      (o)      docker compose up --build
-# Después abre:      http://localhost:8081
+# Después abre:      http://localhost:8090
 name: qabit-tareas
 
 services:
@@ -9,14 +9,23 @@ services:
       dockerfile: server/Dockerfile
     volumes:
       - tasks-data:/data   # la base de datos sobrevive a los reinicios
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
     restart: unless-stopped
 
   web:
     build:
       context: .
       dockerfile: web/Dockerfile
+    environment:
+      # nginx lee los DNS del contenedor y los pone en ${NGINX_LOCAL_RESOLVERS} de la plantilla
+      NGINX_ENTRYPOINT_LOCAL_RESOLVERS: "1"
     ports:
-      - "8081:80"
+      - "8090:80"
     depends_on:
       - api
     restart: unless-stopped

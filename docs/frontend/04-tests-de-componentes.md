@@ -5,7 +5,7 @@
 ## Cómo ejecutarlos
 ```bash
 npm test                # raíz: backend + frontend
-npm test -w web         # solo el frontend (30 tests)
+npm test -w web         # solo el frontend (56 tests con los de GlowLine, NeonCard y notificaciones)
 ```
 
 ## Qué se prueba (21 tests nuevos; con los 9 de [01](01-cliente-api-y-hook.md), 30 en el frontend)

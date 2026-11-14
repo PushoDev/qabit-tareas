@@ -18,6 +18,7 @@ export function StatusFilter({ value, onChange }: Props) {
           key={o.label}
           type="button"
           className="filter__btn"
+          data-status={o.value}
           aria-pressed={value === o.value}
           onClick={() => onChange(o.value)}
         >

@@ -1,18 +1,37 @@
 import { useState } from 'react'
+import GlowLine from './components/GlowLine'
 import { StatusFilter } from './components/StatusFilter'
 import { TaskForm } from './components/TaskForm'
 import { TaskList } from './components/TaskList'
 import { useTasks } from './hooks/useTasks'
+import { createdToast, transitionToast } from './taskEvents'
+import { ToastProvider } from './toast/ToastProvider'
+import { useToast } from './toast/toastContext'
 import type { NewTask, TaskStatus } from './types'
 
-export default function App() {
+function TaskApp() {
+  const toast = useToast()
   const [filter, setFilter] = useState<TaskStatus | undefined>(undefined)
   const { tasks, loading, error, reload, create, changeStatus } = useTasks(filter)
 
   async function handleCreate(task: NewTask) {
-    await create(task)
+    // «Cargando» → «creada»: la misma notificación cambia cuando responde la API.
+    const id = toast.show({ type: 'loading', title: 'Creando tarea…', message: task.title })
+    try {
+      await create(task)
+    } catch (e) {
+      toast.dismiss(id) // el formulario ya muestra el error; no se duplica
+      throw e
+    }
+    toast.update(id, createdToast(task.title, task.assignee))
     // Una tarea nueva siempre nace «Pendiente»: si el filtro activo la ocultaría, volvemos a «Todas».
     setFilter(undefined)
+  }
+
+  async function handleChangeStatus(id: number, status: TaskStatus) {
+    const previous = tasks.find((t) => t.id === id)
+    await changeStatus(id, status) // si falla, la propia tarea muestra el error; no hay notificación
+    toast.show(transitionToast(previous?.title ?? 'La tarea', previous?.status, status))
   }
 
   return (
@@ -24,6 +43,8 @@ export default function App() {
 
       <TaskForm onCreate={handleCreate} />
 
+      <GlowLine orientation="horizontal" color="blue" className="app__divider" />
+
       <StatusFilter value={filter} onChange={setFilter} />
 
       <TaskList
@@ -32,8 +53,16 @@ export default function App() {
         error={error}
         filtered={filter !== undefined}
         onRetry={reload}
-        onChangeStatus={changeStatus}
+        onChangeStatus={handleChangeStatus}
       />
     </main>
+  )
+}
+
+export default function App() {
+  return (
+    <ToastProvider>
+      <TaskApp />
+    </ToastProvider>
   )
 }

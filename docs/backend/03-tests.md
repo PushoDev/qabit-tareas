@@ -9,7 +9,7 @@ npm test -w server            # solo el backend
 npx vitest                    # (dentro de server/) modo observador
 ```
 
-## Qué se prueba (10 tests)
+## Qué se prueba (10 tests; después se añadieron 5 del seed, ver [04](04-datos-de-ejemplo.md))
 
 | Grupo | Test | Qué demuestra |
 |---|---|---|

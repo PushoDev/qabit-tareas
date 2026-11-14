@@ -25,7 +25,7 @@ describe('TaskForm', () => {
     expect(onCreate).not.toHaveBeenCalled()
   })
 
-  it('válido: envía los textos recortados, vacía los campos y confirma «Tarea creada»', async () => {
+  it('válido: envía los textos recortados, vacía los campos y devuelve el foco al título', async () => {
     const onCreate = vi.fn().mockResolvedValue(undefined)
     render(<TaskForm onCreate={onCreate} />)
     const user = userEvent.setup()
@@ -35,8 +35,7 @@ describe('TaskForm', () => {
     await user.click(campos().enviar)
 
     expect(onCreate).toHaveBeenCalledExactlyOnceWith({ title: 'Comprar pan', assignee: 'Luis' })
-    expect(await screen.findByRole('status')).toHaveTextContent('Tarea creada')
-    expect(campos().titulo).toHaveValue('')
+    await waitFor(() => expect(campos().titulo).toHaveValue(''))
     expect(campos().responsable).toHaveValue('')
     expect(campos().titulo).toHaveFocus()
   })

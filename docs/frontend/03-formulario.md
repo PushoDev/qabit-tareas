@@ -16,11 +16,11 @@ Crear una tarea (título y responsable) con validación inmediata en el cliente 
 ## Flujo al pulsar «Crear tarea» (o Enter)
 1. **Validación en el cliente** (`trim`, obligatorio, máximo). Si falla: mensajes bajo cada campo, los campos se marcan (`aria-invalid`), el **foco va al primer campo inválido** y **no se envía nada**.
 2. Si es válida: `POST /api/tasks` con los textos recortados; el botón pasa a «Creando…» y se desactiva (evita doble envío).
-3. **Éxito:** se vacían los campos, aparece «Tarea creada» (`role="status"`) y el foco vuelve al título para escribir la siguiente.
+3. **Éxito:** se vacían los campos y el foco vuelve al título para escribir la siguiente. El aviso de «Tarea creada» lo da la **notificación** ([07](07-notificaciones.md)); el formulario ya no repite el mensaje.
 4. **La API rechaza campos concretos (400 con `details`):** cada mensaje va bajo su campo y el foco al primero. Se conserva lo escrito.
 5. **Fallo general** (servidor caído, 500…): mensaje de error en el formulario (`role="alert"`) y se conserva lo escrito.
 
-Al **escribir** en un campo desaparece su error, y también el error general y el «Tarea creada».
+Al **escribir** en un campo desaparece su error, y también el error general.
 
 ## Accesibilidad
 - Cada campo tiene `<label>` asociado; el error se vincula con `aria-describedby`.

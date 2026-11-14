@@ -21,6 +21,12 @@ function apiFalsa(inicial: Task[]) {
       tareas.unshift(t)
       return json(t, 201)
     }
+    const patch = u.pathname.match(/^\/api\/tasks\/(\d+)\/status$/)
+    if (init?.method === 'PATCH' && patch) {
+      const t = tareas.find((x) => x.id === Number(patch[1]))!
+      t.status = JSON.parse(init.body as string).status
+      return json(t)
+    }
     const estado = u.searchParams.get('status')
     return json(estado ? tareas.filter((t) => t.status === estado) : tareas)
   })
@@ -63,5 +69,50 @@ describe('App (integración)', () => {
 
     expect(await screen.findByText('Nueva tarea')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Todas' })).toHaveAttribute('aria-pressed', 'true')
+  })
+
+  it('notifica cada momento de la vida de una tarea: creada → en curso → hecha → reabierta', async () => {
+    const { fetchMock } = apiFalsa([])
+    vi.stubGlobal('fetch', fetchMock)
+    render(<App />)
+    const user = userEvent.setup()
+
+    await user.type(await screen.findByLabelText('Título'), 'Preparar demo')
+    await user.type(screen.getByLabelText('Responsable'), 'Ana')
+    await user.click(screen.getByRole('button', { name: 'Crear tarea' }))
+    expect(await screen.findByText('Tarea creada')).toBeInTheDocument()
+    expect(screen.getByText('«Preparar demo» queda pendiente para Ana.')).toBeInTheDocument()
+
+    await user.click(await screen.findByRole('button', { name: 'Empezar: Preparar demo' }))
+    expect(await screen.findByText('Tarea en curso')).toBeInTheDocument()
+
+    await user.click(await screen.findByRole('button', { name: 'Marcar hecha: Preparar demo' }))
+    expect(await screen.findByText('¡Tarea completada!')).toBeInTheDocument()
+
+    await user.click(await screen.findByRole('button', { name: 'Reabrir: Preparar demo' }))
+    expect(await screen.findByText('Tarea reabierta')).toBeInTheDocument()
+  })
+
+  it('si crear falla, la notificación «Creando…» no se queda colgada y el error lo muestra el formulario', async () => {
+    const json = (b: unknown, status = 200) =>
+      new Response(JSON.stringify(b), { status, headers: { 'Content-Type': 'application/json' } })
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (_url: string, init?: RequestInit) =>
+        init?.method === 'POST'
+          ? json({ error: 'Datos inválidos', details: [{ field: 'title', message: 'Título rechazado por el servidor' }] }, 400)
+          : json([]),
+      ),
+    )
+    render(<App />)
+    const user = userEvent.setup()
+
+    await user.type(await screen.findByLabelText('Título'), 'Algo')
+    await user.type(screen.getByLabelText('Responsable'), 'Ana')
+    await user.click(screen.getByRole('button', { name: 'Crear tarea' }))
+
+    expect(await screen.findByText('Título rechazado por el servidor')).toBeInTheDocument()
+    expect(screen.queryByText('Creando tarea…')).not.toBeInTheDocument()
+    expect(screen.queryByText('Tarea creada')).not.toBeInTheDocument()
   })
 })

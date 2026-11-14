@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { ApiError } from '../api/tasksApi'
+import { STATUS_COLORS } from '../statusStyle'
 import { STATUS_LABEL, type Task, type TaskStatus } from '../types'
+import NeonCard from './NeonCard'
 
 // El botón lleva la tarea al siguiente paso natural: pendiente → en curso → hecha → (reabrir).
 const NEXT: Record<TaskStatus, { to: TaskStatus; label: string }> = {
@@ -18,6 +20,7 @@ export function TaskItem({ task, onChangeStatus }: Props) {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const next = NEXT[task.status]
+  const color = STATUS_COLORS[task.status]
 
   async function handleClick() {
     setBusy(true)
@@ -32,26 +35,28 @@ export function TaskItem({ task, onChangeStatus }: Props) {
   }
 
   return (
-    <li className="task" data-status={task.status}>
-      <div className="task__main">
-        <span className="task__title">{task.title}</span>
-        <span className="task__meta">Responsable: {task.assignee}</span>
-        {error && (
-          <span className="task__error" role="alert">
-            {error}
-          </span>
-        )}
-      </div>
-      <span className={`badge badge--${task.status}`}>{STATUS_LABEL[task.status]}</span>
-      <button
-        type="button"
-        className="btn"
-        disabled={busy}
-        onClick={handleClick}
-        aria-label={`${next.label}: ${task.title}`}
-      >
-        {busy ? 'Guardando…' : next.label}
-      </button>
+    <li className="task-item" data-status={task.status}>
+      <NeonCard bodyClassName="task" gradientColors={color.colors} glowIntensity={color.glow}>
+        <div className="task__main">
+          <span className="task__title">{task.title}</span>
+          <span className="task__meta">Responsable: {task.assignee}</span>
+          {error && (
+            <span className="task__error" role="alert">
+              {error}
+            </span>
+          )}
+        </div>
+        <span className={`badge badge--${task.status}`}>{STATUS_LABEL[task.status]}</span>
+        <button
+          type="button"
+          className="btn"
+          disabled={busy}
+          onClick={handleClick}
+          aria-label={`${next.label}: ${task.title}`}
+        >
+          {busy ? 'Guardando…' : next.label}
+        </button>
+      </NeonCard>
     </li>
   )
 }

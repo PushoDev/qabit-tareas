@@ -16,14 +16,12 @@ export function TaskForm({ onCreate }: Props) {
   const [values, setValues] = useState<NewTask>(EMPTY)
   const [errors, setErrors] = useState<FormErrors>({}) // errores por campo (cliente o API)
   const [formError, setFormError] = useState<string | null>(null) // fallo general (red caída, 500…)
-  const [created, setCreated] = useState(false)
   const [sending, setSending] = useState(false)
 
   const change = (field: keyof NewTask) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues((v) => ({ ...v, [field]: e.target.value }))
     setErrors((prev) => ({ ...prev, [field]: undefined })) // al corregir un campo, su error desaparece
     setFormError(null)
-    setCreated(false)
   }
 
   function focusFirstInvalid(errs: FormErrors) {
@@ -33,7 +31,6 @@ export function TaskForm({ onCreate }: Props) {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    setCreated(false)
     setFormError(null)
 
     const clientErrors = validateNewTask(values)
@@ -46,8 +43,7 @@ export function TaskForm({ onCreate }: Props) {
     setSending(true)
     try {
       await onCreate({ title: values.title.trim(), assignee: values.assignee.trim() })
-      setValues(EMPTY)
-      setCreated(true)
+      setValues(EMPTY) // el aviso de «Tarea creada» lo da la notificación (toast)
       titleRef.current?.focus() // listo para escribir la siguiente
     } catch (err) {
       if (err instanceof ApiError && err.details.length > 0) {
@@ -111,11 +107,6 @@ export function TaskForm({ onCreate }: Props) {
       {formError && (
         <p className="form__msg form__msg--error" role="alert">
           {formError}
-        </p>
-      )}
-      {created && (
-        <p className="form__msg" role="status">
-          Tarea creada
         </p>
       )}
     </form>

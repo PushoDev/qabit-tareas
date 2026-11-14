@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { ApiError } from '../api/tasksApi'
+import { STATUS_COLORS } from '../statusStyle'
 import type { Task } from '../types'
 import { TaskItem } from './TaskItem'
 
@@ -66,5 +67,22 @@ describe('TaskItem', () => {
 
     expect(await screen.findByRole('alert')).toHaveTextContent('La tarea 7 no existe')
     expect(screen.getByRole('button', { name: /Empezar/ })).toBeEnabled()
+  })
+
+  it.each(['pending', 'in_progress', 'done'] as const)(
+    'estado %s: la tarjeta usa SU color (la clasificación por colores)',
+    (estado) => {
+      renderItem(estado)
+
+      const tarjeta = screen.getByText('Preparar la demo').closest('.neon') as HTMLElement
+      expect(tarjeta.style.getPropertyValue('--neon-color')).toBe(STATUS_COLORS[estado].colors[0])
+      expect(tarjeta.closest('li')).toHaveAttribute('data-status', estado)
+    },
+  )
+
+  it('cada estado tiene un color distinto', () => {
+    const principales = Object.values(STATUS_COLORS).map((c) => c.colors[0])
+
+    expect(new Set(principales).size).toBe(3)
   })
 })

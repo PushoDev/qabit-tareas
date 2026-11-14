@@ -24,6 +24,18 @@
 | 20 | **Error por campo** (400 con `details`) vs **error general** (red, 500) | Cada fallo se muestra donde el usuario puede actuar | un solo mensaje para todo |
 | 21 | Tests que **buscan por rol, etiqueta y texto** (Testing Library + user-event) | Prueban lo que ve el usuario y la accesibilidad; no se rompen al cambiar CSS | seleccionar por clases o por la estructura interna |
 | 22 | Un test de **integración con API falsa en memoria** | Cruza todas las capas del frontend sin depender del servidor | solo tests aislados por componente |
+| 23 | **Portar `GlowLine` de Tailwind a CSS plano** | El proyecto no usa Tailwind; instalarlo entero por una línea añade dependencia y riesgo en una prueba con tiempo limitado | instalar Tailwind |
+| 24 | El separador es **decorativo** (`aria-hidden`) y en el flujo por defecto | No debe anunciarse ni ocupar sitio absoluto sin pedirlo | `position: absolute` siempre |
+| 25 | **nginx vuelve a resolver `api`** (plantilla con `resolver`) | Podman cambia la IP de un contenedor al reiniciarlo; sin esto, 502 | dejar la resolución fija al arrancar |
+| 26 | La API **captura SIGTERM** y cierra ordenadamente | Un reinicio pasó de 10 s a 0,7 s y no se corta la base de datos | dejar que el orquestador la mate |
+| 27 | **Healthcheck en `compose.yaml`** y usuario `node` sin privilegios | Podman ignora `HEALTHCHECK` en imágenes OCI; menos privilegios | healthcheck en el Dockerfile / root |
+| 28 | **Seed solo si la tabla está vacía**, activo por defecto (`SEED_DEMO=false` lo apaga) | Quien descargue el repo debe ver datos sin hacer nada, sin riesgo para datos reales | cargar siempre / un script manual |
+| 29 | El seed vive en `index.ts`, **no en `openDb`** | Abrir la base no debe tener efectos secundarios; los tests parten de una base vacía | seed dentro de `openDb` |
+| 30 | Color por estado definido **en un solo archivo** (`statusStyle.ts`) y usado en tarjeta, insignia y filtro | Una única clasificación coherente | colores sueltos por componente |
+| 31 | **Quitar las partículas** de `NeonCard` y la posición del ratón en `useState` | Pesaban, saltaban en cada render y re-renderizaban en cada movimiento | portarlas tal cual |
+| 32 | **Los fallos no generan notificación** (los muestra el formulario o la tarea) | Evita duplicar el mismo error | un toast por cada error |
+| 33 | Notificaciones **con pausa al pasar el ratón** y «cargando» que no se cierra solo | Accesibilidad (WCAG 2.2.1) y feedback real de una petición en curso | cierre automático fijo |
+| 34 | **Banner como ilustración etiquetada**, con una copia de fondo oscuro | No es una captura (muestra funciones que la app no tiene); el original transparente se perdía en el tema claro | presentarla como captura |
 
 ## Entorno de desarrollo (no afecta al resultado)
 - El proyecto vive en un disco ext4 (SSD). En un disco NTFS, `npm install` perdió archivos en silencio.
