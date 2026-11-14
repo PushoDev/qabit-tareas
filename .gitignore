@@ -20,6 +20,9 @@ server/data/
 .vscode/
 .cursor/
 
+# Vercel (carpeta local de la CLI)
+.vercel/
+
 # Logs y sistema
 *.log
 .DS_Store

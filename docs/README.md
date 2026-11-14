@@ -17,6 +17,7 @@ Un documento por módulo, escrito mientras se construye. Orden de lectura:
 | [frontend/02-lista-y-filtro.md](frontend/02-lista-y-filtro.md) | Lista, filtro por estado, cambio de estado, carga y error | ✅ hecho |
 | [frontend/03-formulario.md](frontend/03-formulario.md) | Formulario validado | ✅ hecho |
 | [frontend/04-tests-de-componentes.md](frontend/04-tests-de-componentes.md) | Tests de componentes e integración (21 nuevos; 30 en el frontend) | ✅ hecho |
+| [despliegue-en-vercel.md](despliegue-en-vercel.md) | Demo en línea opcional en **una sola URL** de Vercel (preparado, pendiente de desplegar) | 🟡 preparado |
 | [despliegue-con-contenedores.md](despliegue-con-contenedores.md) | Compose, Dockerfiles, nginx, y los fallos que apareció al probarlo | ✅ hecho |
 | [frontend/05-separador-glowline.md](frontend/05-separador-glowline.md) | Separador decorativo `GlowLine` (portado de Tailwind a CSS plano) | ✅ hecho |
 | [frontend/06-colores-por-estado.md](frontend/06-colores-por-estado.md) | Colores por estado con `NeonCard` (portado de Next.js a CSS plano) | ✅ hecho |

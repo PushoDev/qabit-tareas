@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build -w server && npm run build -w web",
+  "outputDirectory": "web/dist",
+  "build": { "env": { "VITE_DEMO_NOTICE": "true" } },
+  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }],
+  "functions": {
+    "api/index.mjs": {
+      "maxDuration": 10,
+      "includeFiles": "{server/dist/**,node_modules/better-sqlite3/**,node_modules/bindings/**,node_modules/file-uri-to-path/**}"
+    }
+  }
+}

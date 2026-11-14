@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import DemoNotice from './components/DemoNotice'
 import GlowLine from './components/GlowLine'
 import { StatusFilter } from './components/StatusFilter'
 import { TaskForm } from './components/TaskForm'
@@ -36,6 +37,7 @@ function TaskApp() {
 
   return (
     <main className="app">
+      <DemoNotice enabled={import.meta.env.VITE_DEMO_NOTICE === 'true'} />
       <header className="app__header">
         <h1>Gestor de tareas</h1>
         <p className="app__subtitle">Crea tareas, asígnalas y sigue su estado.</p>

@@ -36,6 +36,7 @@
 | 32 | **Los fallos no generan notificación** (los muestra el formulario o la tarea) | Evita duplicar el mismo error | un toast por cada error |
 | 33 | Notificaciones **con pausa al pasar el ratón** y «cargando» que no se cierra solo | Accesibilidad (WCAG 2.2.1) y feedback real de una petición en curso | cierre automático fijo |
 | 34 | **Banner como ilustración etiquetada**, con una copia de fondo oscuro | No es una captura (muestra funciones que la app no tiene); el original transparente se perdía en el tema claro | presentarla como captura |
+| 35 | **Demo en línea en una sola URL de Vercel** con SQLite en `/tmp` y aviso en pantalla (no web en Vercel + API aparte) | Más simple; con poco tráfico basta. Coste: los datos no persisten (avisado). Se hace en una rama aparte para no tocar lo entregado | web en Vercel + API en Render (también efímera); Turso/Neon (persistente, más trabajo) |
 
 ## Entorno de desarrollo (no afecta al resultado)
 - El proyecto vive en un disco ext4 (SSD). En un disco NTFS, `npm install` perdió archivos en silencio.
