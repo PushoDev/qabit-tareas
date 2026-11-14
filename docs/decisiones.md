@@ -22,6 +22,8 @@
 | 18 | Validar en el **cliente y en la API** (mismos límites) | Respuesta inmediata sin viajes inútiles; la API sigue mandando | solo servidor, o solo cliente |
 | 19 | Tras crear, el **filtro vuelve a «Todas»** | Una tarea nueva es «Pendiente»; con otro filtro activo parecería que no se creó | dejar el filtro y no mostrarla |
 | 20 | **Error por campo** (400 con `details`) vs **error general** (red, 500) | Cada fallo se muestra donde el usuario puede actuar | un solo mensaje para todo |
+| 21 | Tests que **buscan por rol, etiqueta y texto** (Testing Library + user-event) | Prueban lo que ve el usuario y la accesibilidad; no se rompen al cambiar CSS | seleccionar por clases o por la estructura interna |
+| 22 | Un test de **integración con API falsa en memoria** | Cruza todas las capas del frontend sin depender del servidor | solo tests aislados por componente |
 
 ## Entorno de desarrollo (no afecta al resultado)
 - El proyecto vive en un disco ext4 (SSD). En un disco NTFS, `npm install` perdió archivos en silencio.
